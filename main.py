@@ -40,7 +40,7 @@ def main(client):
         function_results = []
         if response.function_calls:
             for function_call in response.function_calls:
-                result = call_function(function_call, args.verbose)
+                result = call_function(function_call, True)
                 if not result.parts:
                     raise Exception(f"Error: no parts in function call {function_call.name}({function_call.args})")
                 if result.parts[0].function_response.response == None:
