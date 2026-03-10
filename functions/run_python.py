@@ -40,8 +40,8 @@ def run_python_file(working_directory, file_path, args=None):
     
 from google.genai import types
 
-schema_run_python = types.FunctionDeclaration(
-    name="run_python",
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
     description="Runs the python script specified by filepath (relative from working directory) with the given arguments",
     parameters=types.Schema(
         type=types.Type.OBJECT,
@@ -52,9 +52,10 @@ schema_run_python = types.FunctionDeclaration(
             ),
             "args": types.Schema(
                 type=types.Type.ARRAY,
+                items=types.Schema(type=types.Type.STRING),
                 description="A list of the arguments to give to the function"
             )
         },
+        required=["file_path"]
     ),
-    required=["file_path"]
 )

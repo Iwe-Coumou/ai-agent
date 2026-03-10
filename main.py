@@ -39,5 +39,6 @@ if args.verbose:
 if response.function_calls:
     for function_call in response.function_calls:
         print(f"Calling function: {function_call.name}({(function_call.args)})")
-else:
+
+if response.text:
     print(f"{response.text}")
