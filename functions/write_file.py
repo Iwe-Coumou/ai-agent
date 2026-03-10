@@ -19,4 +19,25 @@ def write_file(working_directory, file_path, content):
         if f.write(content) == len(content):
             return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
     return f'Error: Failed to write all content to "{file_path}"'
-        
+
+
+from google.genai import types
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes the given content to the file specified by file_path (relative to workign directory), if the file already exists it is completely overwritten",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="File path to the desired file, relative to the working directory (default is the working directory itself). If there are parent directories in the file path that do not exist yet they will be created",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="A string containing the text to but written to the file"
+            )
+        },
+    ),
+    required=["file_path", "content"]
+)

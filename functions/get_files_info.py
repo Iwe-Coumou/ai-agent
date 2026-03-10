@@ -1,4 +1,5 @@
 import os
+from google.genai import types
 
 def get_files_info(working_directory, directory="."):
     try:
@@ -25,3 +26,17 @@ def get_files_info(working_directory, directory="."):
         dir_log.append((name, file_size, is_dir))
     
     return "\n".join(map(lambda item: f"\t- {item[0]}: file_size= {item[1]} bytes, is_dir={item[2]}" , dir_log))
+
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_info",
+    description="Lists files in a specified directory relative to the working directory, providing file size and directory status",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+            ),
+        },
+    ),
+)
